@@ -5,8 +5,6 @@ from .parsers.Validator        import Validator
 from .parsers.OffsetCalculator import OffsetMarker
 from .parsers.OffsetCalculator import OffsetCalculator
 from .descriptors.StreamEOF    import NotAtEOFError
-from .descriptors              import STANDARD_DESCRIPTORS
-from .descriptors              import STANDARD_ENDIAN_DESCRIPTORS
 
 from .serializables.traits import ReadableTrait
 from .serializables.traits import WriteableTrait
