@@ -16,7 +16,7 @@ class VerifyOffsetDescriptor:
         if binary_parser.tell() != offset:
             prefix = message + ': ' if message is not None else ''
             if binary_parser.tell() != binary_parser.global_tell():
-                raise UnexpectedGlobalOffsetError(prefix, offset, binary_parser.tell(), binary_parser.localToGlobalOffset, formatter)
+                raise UnexpectedGlobalOffsetError(prefix, offset, binary_parser.tell(), binary_parser.local_to_global_offset, formatter)
             else:
                 raise UnexpectedOffsetError(prefix, offset, binary_parser.tell(), formatter)
 
@@ -24,7 +24,7 @@ class VerifyOffsetDescriptor:
         if binary_parser.tell() != offset:
             prefix = message + ': ' if message is not None else ''
             if binary_parser.tell() != binary_parser.global_tell():
-                raise UnexpectedGlobalOffsetError(prefix, offset, binary_parser.tell(), binary_parser.localToGlobalOffset, formatter)
+                raise UnexpectedGlobalOffsetError(prefix, offset, binary_parser.tell(), binary_parser.local_to_global_offset, formatter)
             else:
                 raise UnexpectedOffsetError(prefix, offset, binary_parser.tell(), formatter)
 
