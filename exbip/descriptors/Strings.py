@@ -45,17 +45,23 @@ class CBytestringDescriptor:
         fr = binary_parser._bytestream.read
         buf = fr(chunksize)
         idx = buf.find(terminator)
-        while idx == -1:
-            sz += chunksize
-            buf = fr(chunksize)
-            idx = buf.find(terminator)
-            if not len(buf):
-                binary_parser.seek(origin)
-                return fr(sz+chunksize)
+        multibyte_adjustment = len(terminator)-1
+        if idx < 0:
+            while True:
+                sz += chunksize
+                prefix = buf[chunksize - multibyte_adjustment:] 
+                buf = fr(chunksize)
+                if not len(buf):
+                    binary_parser.seek(origin)
+                    return fr(sz+chunksize)
+    
+                idx = (prefix+buf).find(terminator)
+                if idx != -1:
+                    idx -= multibyte_adjustment
+                    break
         sz += idx
-        
         binary_parser.seek(origin)
-        return fr(sz+1)[:-1]
+        return fr(sz+len(terminator))[:-len(terminator)]
 
     def serialize(binary_parser, value, chunksize=0x40, terminator=b'\x00'):
         binary_parser._bytestream.write(value + terminator)
